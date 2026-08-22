@@ -6,9 +6,13 @@ const App = () => {
   const [selectedCategories, setSelectedCategories] = useState([])
 
   const getData = async () => {
-    const res = await axios.get('https://dummyjson.com/products')
-    setProductData(res.data.products)
-    console.log(res.data.products)
+    try {
+      const res = await axios.get('https://dummyjson.com/products')
+      setProductData(res.data.products)
+    } catch (error) {
+      console.error("Error in fetching API", error)
+    }
+
   }
   useEffect(() => {
     getData()
@@ -29,7 +33,7 @@ const App = () => {
     <div className='flex gap-10'>
       <div className='sidebar my-10 ml-4 flex flex-col gap-5'>
         <h2 className='text-2xl font-bold'>Filters</h2>
-        <h3 className='border-b-1 ml-5'>Categories</h3>
+        <h3 className='border-b ml-5'>Categories</h3>
         <div> <input className='mr-2' type="checkbox" name="beauty" id="beauty" value="beauty" onChange={handleCategoryChange} />
           <label htmlFor="beauty">Beauty</label>
         </div>
